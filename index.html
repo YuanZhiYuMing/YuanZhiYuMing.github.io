@@ -1,10 +1,10 @@
-
-
-
-    
-    
-    文件下载 - YuanZhiYuMing.github.io
-    
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件下载 - YuanZhiYuMing.github.io</title>
+    <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -109,23 +109,23 @@
             .file-item { flex-direction: column; gap: 12px; text-align: center; }
             .file-info { flex-direction: column; gap: 6px; }
         }
-    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 文件下载中心</h1>
+        <p class="subtitle">YuanZhiYuMing.github.io / main 分支</p>
 
+        <ul class="file-list" id="fileList"></ul>
 
-    
-        📁 文件下载中心
-        YuanZhiYuMing.github.io / main 分支
+        <a class="download-all-btn" href="#" onclick="downloadAll()">⬇️ 一键下载全部文件</a>
 
-        
+        <footer>
+            <p>Powered by GitHub Pages &middot; YuanZhiYuMing/YuanZhiYuMing.github.io</p>
+        </footer>
+    </div>
 
-        ⬇️ 一键下载全部文件
-
-        
-            Powered by GitHub Pages &middot; YuanZhiYuMing/YuanZhiYuMing.github.io
-        
-    
-
-    
+    <script>
         const repo = 'YuanZhiYuMing/YuanZhiYuMing.github.io';
         const branch = 'main';
         const rawBase = `https://raw.githubusercontent.com///`;
@@ -144,25 +144,25 @@
             li.className = 'file-item';
             if (file.isExternal) {
                 li.innerHTML = `
-                    
-                        ${file.icon}
-                        
-                            ${file.name}
-                            ${file.ext}
-                        
-                    
-                    前往下载
+                    <div class="file-info">
+                        <div class="file-icon">${file.icon}</div>
+                        <div>
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-ext">${file.ext}</div>
+                        </div>
+                    </div>
+                    <a class="download-btn" href="${file.url}" target="_blank">前往下载</a>
                 `;
             } else {
                 li.innerHTML = `
-                    
-                        ${file.icon}
-                        
-                            ${file.name}
-                            ${file.ext}
-                        
-                    
-                    下载
+                    <div class="file-info">
+                        <div class="file-icon">${file.icon}</div>
+                        <div>
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-ext">${file.ext}</div>
+                        </div>
+                    </div>
+                    <a class="download-btn" href="${rawBase + encodeURIComponent(file.name)}" download="${file.name}">下载</a>
                 `;
             }
             fileListEl.appendChild(li);
@@ -181,6 +181,6 @@
                 }, index * 800);
             });
         }
-    
-
-
+    </script>
+</body>
+</html>
