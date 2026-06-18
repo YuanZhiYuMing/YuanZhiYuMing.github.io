@@ -1,312 +1,173 @@
-
-
-
-    
-    
-    YuanZhiYuMing's Personal Website
-    
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件下载 - YuanZhiYuMing.github.io</title>
+    <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            color: #e0e0e0;
+            padding: 40px 20px;
         }
-        .header {
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 {
             text-align: center;
-            padding: 60px 20px 40px;
-            color: white;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 35px;
+            font-size: 0.95em;
         }
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
-        }
-        .card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            backdrop-filter: blur(10px);
-        }
-        .card h2 {
-            font-size: 1.6em;
-            margin-bottom: 20px;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card p {
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        /* Download Section Styles */
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 18px;
-            margin-top: 20px;
-        }
-        .download-item {
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
-            padding: 22px;
-            transition: all 0.3s ease;
-            background: #fafbfc;
+        .file-list {
+            list-style: none;
             display: flex;
             flex-direction: column;
+            gap: 12px;
         }
-        .download-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 16px rgba(102,126,234,0.2);
-            transform: translateY(-2px);
-        }
-        .download-item .file-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        .download-item .file-name {
-            font-weight: 600;
-            font-size: 1.05em;
-            color: #333;
-            margin-bottom: 6px;
-            word-break: break-all;
-        }
-        .download-item .file-desc {
-            font-size: 0.88em;
-            color: #888;
-            margin-bottom: 14px;
-            flex-grow: 1;
-        }
-        .download-btn {
-            display: inline-flex;
+        .file-item {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 22px;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+        }
+        .file-item:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(0,210,255,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .file-info { display: flex; align-items: center; gap: 14px; }
+        .file-icon {
+            width: 42px; height: 42px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4em;
+            background: rgba(0,210,255,0.15);
+        }
+        .file-name { font-size: 1.05em; font-weight: 500; }
+        .file-ext { font-size: 0.78em; color: #888; margin-top: 3px; }
+        .download-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            color: #fff;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 0.95em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
         .download-btn:hover {
-            background: linear-gradient(135deg, #5a6fd6, #6a4196);
-            box-shadow: 0 4px 12px rgba(102,126,234,0.35);
+            background: linear-gradient(135deg, #00bbee, #2568c4);
+            box-shadow: 0 4px 15px rgba(0,210,255,0.35);
+            transform: scale(1.05);
         }
-        .download-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* Notice */
-        .notice {
-            background: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 14px 18px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 0.92em;
-            color: #856404;
-        }
-        .notice strong { color: #664d03; }
-
-        /* Footer */
-        .footer {
+        .download-all-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto 0;
+            padding: 16px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: #fff;
             text-align: center;
-            padding: 30px 20px;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.95em;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(245,87,108,0.3);
         }
-        .footer a {
-            color: white;
-            text-decoration: underline;
+        .download-all-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 28px rgba(245,87,108,0.45);
         }
-
-        /* Responsive */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #555;
+            font-size: 0.82em;
+        }
         @media (max-width: 600px) {
-            .header h1 { font-size: 2em; }
-            .card { padding: 24px; }
-            .download-grid { grid-template-columns: 1fr; }
+            .file-item { flex-direction: column; gap: 12px; text-align: center; }
+            .file-info { flex-direction: column; gap: 6px; }
         }
-    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 文件下载中心</h1>
+        <p class="subtitle">YuanZhiYuMing.github.io / main 分支</p>
 
+        <ul class="file-list" id="fileList"></ul>
 
+        <a class="download-all-btn" href="#" onclick="downloadAll()">⬇️ 一键下载全部文件</a>
 
-    
-    
-        🌐 YuanZhiYuMing
-        欢迎来到我的个人主页
-    
+        <footer>
+            <p>Powered by GitHub Pages &middot; YuanZhiYuMing/YuanZhiYuMing.github.io</p>
+        </footer>
+    </div>
 
-    
+    <script>
+        const repo = 'YuanZhiYuMing/YuanZhiYuMing.github.io';
+        const branch = 'main';
+        const rawBase = `https://raw.githubusercontent.com/${repo}/${branch}/`;
 
-        
-        
-            👋 关于我
-            这是我的个人网站，基于 GitHub Pages 托管。
-            你可以在这里了解我的项目、获取资源文件，或通过 GitHub 联系我。
-        
+        const files = [
+            { name: 'JiYuTrainer.exe', icon: '🎮', ext: '可执行文件' },
+            { name: 'README.md', icon: '📄', ext: 'Markdown 文档' },
+            { name: 'SURVIVAL-hmcl_mc1.21.11.exe', icon: '🎮', ext: 'HMCL 启动器' },
+            { name: 'idman642build63 (2).exe', icon: '📥', ext: 'IDM 下载器' },
+            { name: 'idman642build63.exe', icon: '📥', ext: 'IDM 下载器' },
+        ];
 
-        
-        
-            📥 文件下载
-            以下文件托管在 downloadfile 分支中，点击按钮即可下载：
+        const fileListEl = document.getElementById('fileList');
 
-            
-                
-
-                
-                
-                    📄
-                    example.pdf
-                    示例 PDF 文档
-                    
-                        ⬇️ 下载
-                    
-                
-
-                
-                    📝
-                    document.docx
-                    Word 文档
-                    
-                        ⬇️ 下载
-                    
-                
-
-                
-                    📊
-                    data.xlsx
-                    Excel 数据表格
-                    
-                        ⬇️ 下载
-                    
-                
-
-                
-                    📦
-                    resource.zip
-                    资源压缩包
-                    
-                        ⬇️ 下载
-                    
-                
-            
-
-            
-                💡 提示：文件来源于 downloadfile 分支。如需添加新文件，请在该分支中上传文件后刷新此页面。
-            
-        
-
-    
-
-    
-    
-        Built with ❤️ by YuanZhiYuMing
-        Powered by GitHub Pages
-    
-
-    
-        // ====== 动态加载 downloadfile 分支的文件列表 ======
-        const GITHUB_API = 'https://api.github.com/repos/YuanZhiYuMing/YuanZhiYuMing.github.io/contents';
-        const BRANCH = 'downloadfile';
-        const RAW_BASE = 'https://raw.githubusercontent.com/YuanZhiYuMing/YuanZhiYuMing.github.io/downloadfile';
-
-        // 文件类型图标映射
-        const FILE_ICONS = {
-            pdf: '📄', doc: '📝', docx: '📝',
-            xls: '📊', xlsx: '📊', csv: '📊',
-            zip: '📦', rar: '📦', '7z': '📦', tar: '📦', gz: '📦',
-            png: '🖼️', jpg: '🖼️', jpeg: '🖼️', gif: '🖼️', svg: '🖼️', webp: '🖼️',
-            mp4: '🎬', avi: '🎬', mkv: '🎬', mov: '🎬',
-            mp3: '🎵', wav: '🎵', flac: '🎵',
-            txt: '📃', md: '📃', json: '📋', xml: '📋',
-            html: '🌐', css: '🎨', js: '⚡', py: '🐍', java: '☕',
-            default: '📁'
-        };
-
-        function getFileIcon(filename) {
-            const ext = filename.split('.').pop().toLowerCase();
-            return FILE_ICONS[ext] || FILE_ICONS.default;
-        }
-
-        function getFileDesc(filename, size) {
-            const ext = filename.split('.').pop().toLowerCase();
-            const descs = {
-                pdf: 'PDF 文档', docx: 'Word 文档', doc: 'Word 文档',
-                xlsx: 'Excel 表格', xls: 'Excel 表格', csv: 'CSV 数据',
-                zip: '压缩包', rar: '压缩包', '7z': '压缩包',
-                png: '图片', jpg: '图片', jpeg: '图片', gif: 'GIF 图片', svg: '矢量图', webp: '图片',
-                mp4: '视频', avi: '视频', mkv: '视频',
-                mp3: '音频', wav: '音频',
-                txt: '文本文件', md: 'Markdown',
-                json: 'JSON 数据', xml: 'XML 数据',
-                html: '网页文件', css: '样式表', js: '脚本文件',
-                py: 'Python 脚本', java: 'Java 源码'
-            };
-            let desc = descs[ext] || '文件';
-            if (size) desc += ` (${formatSize(size)})`;
-            return desc;
-        }
-
-        function formatSize(bytes) {
-            if (!bytes) return '';
-            if (bytes 
-                    ${icon}
-                    ${file.name}
-                    ${desc}
-                    
-                        ⬇️ 下载
-                    
-                
+        files.forEach(file => {
+            const li = document.createElement('li');
+            li.className = 'file-item';
+            li.innerHTML = `
+                <div class="file-info">
+                    <div class="file-icon">${file.icon}</div>
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-ext">${file.ext}</div>
+                    </div>
+                </div>
+                <a class="download-btn" href="${rawBase}${encodeURIComponent(file.name)}" download="${file.name}">下载</a>
             `;
+            fileListEl.appendChild(li);
+        });
+
+        function downloadAll() {
+            files.forEach((file, index) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = rawBase + encodeURIComponent(file.name);
+                    a.download = file.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 800);
+            });
         }
-
-        async function loadDownloadFiles() {
-            try {
-                const resp = await fetch(`${GITHUB_API}?ref=${BRANCH}`);
-                if (!resp.ok) {
-                    if (resp.status === 404) {
-                        console.log(`[Info] Branch "${BRANCH}" not found yet. Showing static fallback items.`);
-                    } else {
-                        console.warn(`[Warn] API returned ${resp.status}`);
-                    }
-                    return; // 保留静态兜底内容
-                }
-                const files = await resp.json();
-                // 过滤出文件（非目录）
-                const fileList = files.filter(f => f.type === 'file');
-
-                if (fileList.length > 0) {
-                    const container = document.getElementById('downloadList');
-                    container.innerHTML = fileList.map(renderDownloadItem).join('');
-                    console.log(`[OK] Loaded ${fileList.length} file(s) from "${BRANCH}" branch.`);
-                }
-            } catch (err) {
-                console.warn('[Warn] Failed to load file list:', err.message);
-            }
-        }
-
-        // 页面加载时获取文件列表
-        document.addEventListener('DOMContentLoaded', loadDownloadFiles);
-    
-
-
-
+    </script>
+</body>
+</html>
