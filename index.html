@@ -3,138 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文件下载 - YuanZhiYuMing.github.io</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            color: #e0e0e0;
-            padding: 40px 20px;
-        }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 {
-            text-align: center;
-            font-size: 2.2em;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .subtitle {
-            text-align: center;
-            color: #888;
-            margin-bottom: 35px;
-            font-size: 0.95em;
-        }
-        .file-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .file-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 16px 22px;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(8px);
-        }
-        .file-item:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: rgba(0,210,255,0.4);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        .file-info { display: flex; align-items: center; gap: 14px; }
-        .file-icon {
-            width: 42px; height: 42px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4em;
-            background: rgba(0,210,255,0.15);
-        }
-        .file-name { font-size: 1.05em; font-weight: 500; }
-        .file-ext { font-size: 0.78em; color: #888; margin-top: 3px; }
-        .download-btn {
-            display: inline-block;
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9em;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-        }
-        .download-btn:hover {
-            background: linear-gradient(135deg, #00bbee, #2568c4);
-            box-shadow: 0 4px 15px rgba(0,210,255,0.35);
-            transform: scale(1.05);
-        }
-        .download-all-btn {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 30px auto 0;
-            padding: 16px;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: #fff;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(245,87,108,0.3);
-        }
-        .download-all-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 28px rgba(245,87,108,0.45);
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #555;
-            font-size: 0.82em;
-        }
-        @media (max-width: 600px) {
-            .file-item { flex-direction: column; gap: 12px; text-align: center; }
-            .file-info { flex-direction: column; gap: 6px; }
-        }
-    </style>
+    <title>我的世界1.21.11Java资源下载</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="container">
-        <h1>📁 文件下载中心</h1>
-        <p class="subtitle">YuanZhiYuMing.github.io / main 分支</p>
+        <h1>文件下载</h1>
 
         <ul class="file-list" id="fileList"></ul>
 
-        <a class="download-all-btn" href="#" onclick="downloadAll()">⬇️ 一键下载全部文件</a>
-
-        <footer>
-            <p>Powered by GitHub Pages &middot; YuanZhiYuMing/YuanZhiYuMing.github.io</p>
-        </footer>
     </div>
 
     <script>
-        const repo = 'YuanZhiYuMing/YuanZhiYuMing.github.io';
-        const branch = 'main';
-        const rawBase = `https://raw.githubusercontent.com///`;
-
         const files = [
-            { name: 'JiYuTrainer.exe', icon: '🎮', ext: '可执行文件' },
-            { name: 'SURVIVAL-hmcl_mc1.21.11.exe', icon: '🎮', ext: 'HMCL 启动器' },
-            { name: 'idman642build63.exe', icon: '📥', ext: 'IDM 下载器' },
-            { name: 'Survival_MC1.21.11压缩包', icon: '📦', ext: '网盘下载', isExternal: true, url: 'https://pan.huang1111.cn/s/A6aeMTB' },
+            { name: 'JiYuTrainer.exe', icon: '🎮', ext: '极域管理程序' , isExternal: true, url: 'https://pan.huang1111.cn/s/we9GxfK' },
+            { name: 'idman642build63.exe', icon: '📥', ext: 'IDM多线程下载器' , isExternal: true, url: 'https://pan.huang1111.cn/s/QzQgbcm' },
+            { name: 'Survival_MC1.21.11压缩包', icon: '📦', ext: 'HMCL启动器包', isExternal: true, url: 'https://pan.huang1111.cn/s/A6aeMTB' },
         ];
 
         const fileListEl = document.getElementById('fileList');
@@ -167,20 +51,6 @@
             }
             fileListEl.appendChild(li);
         });
-
-        function downloadAll() {
-            files.forEach((file, index) => {
-                if (file.isExternal) return;
-                setTimeout(() => {
-                    const a = document.createElement('a');
-                    a.href = rawBase + encodeURIComponent(file.name);
-                    a.download = file.name;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }, index * 800);
-            });
-        }
     </script>
 </body>
 </html>
