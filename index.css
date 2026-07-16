@@ -72,25 +72,26 @@ h1 {
     box-shadow: 0 4px 15px rgba(0,210,255,0.35);
     transform: scale(1.05);
 }
-.download-all-btn {
+.guide-btn {
     display: block;
     width: 100%;
     max-width: 300px;
-    margin: 30px auto 0;
-    padding: 16px;
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: #fff;
+    margin: 40px auto 0;
+    padding: 18px;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+    color: #1e1e1e;
     text-align: center;
     text-decoration: none;
     border-radius: 14px;
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1.15em;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(245,87,108,0.3);
+    box-shadow: 0 6px 20px rgba(67, 233, 123, 0.3);
 }
-.download-all-btn:hover {
+
+.guide-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 28px rgba(245,87,108,0.45);
+    box-shadow: 0 8px 28px rgba(67, 233, 123, 0.45);
 }
 footer {
     text-align: center;
