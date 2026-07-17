@@ -1,82 +1,130 @@
 (function() {
     'use strict';
 
-    // ---------- 生成目录 ----------
+    // ========== 明暗主题切换 ==========
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+
+    toggleBtn.addEventListener('click', function(){
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    });
+
+    // ========== 自定义光标 + 动态光效 ==========
+    (function() {
+        const dot = document.getElementById('cursorDot');
+        const outline = document.getElementById('cursorOutline');
+        const glow = document.getElementById('cursorGlow');
+
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouchDevice) {
+            dot.style.display = 'none';
+            outline.style.display = 'none';
+            glow.style.display = 'none';
+            return;
+        }
+
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX - 4 + 'px';
+            dot.style.top = mouseY - 4 + 'px';
+            glow.style.left = mouseX + 'px';
+            glow.style.top = mouseY + 'px';
+        });
+
+        function animateOutline() {
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            outline.style.left = outlineX - 20 + 'px';
+            outline.style.top = outlineY - 20 + 'px';
+            requestAnimationFrame(animateOutline);
+        }
+        animateOutline();
+
+        const hoverTargets = document.querySelectorAll('a, button, .back-home-btn, .theme-toggle, .toc a');
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => outline.classList.add('hover'));
+            el.addEventListener('mouseleave', () => outline.classList.remove('hover'));
+        });
+
+        document.addEventListener('mousedown', () => {
+            dot.style.transform = 'scale(0.5)';
+            outline.style.transform = 'scale(0.8)';
+        });
+        document.addEventListener('mouseup', () => {
+            dot.style.transform = 'scale(1)';
+            outline.style.transform = 'scale(1)';
+        });
+    })();
+
+    // ========== 生成目录 ==========
     const content = document.getElementById('contentWrapper');
     const tocList = document.getElementById('tocList');
-
-    // 收集所有标题（h2, h3, h4），h1 作为页面标题不加入目录
     const headings = content.querySelectorAll('h2, h3, h4');
 
-    // 为没有 id 的标题生成 id
     headings.forEach(function(h) {
         if (!h.id) {
-            // 用文本内容生成 id
             let raw = h.textContent.trim();
-            // 移除特殊字符
-            let id = raw.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '-')
+            let id = raw.replace(/[^a-zA-Z0-9一-龥]/g, '-')
                 .replace(/-+/g, '-')
                 .replace(/^-|-$/g, '');
-            if (!id) id = 'section-' + Math.random().toString(36).substr(2, 6);
+            if (!id) id = 'section-' + Math.random().toString(36).slice(2, 8);
             h.id = id;
         }
     });
 
-    // 构建目录树
     let tocHTML = '';
     headings.forEach(function(h) {
-        const level = h.tagName.toLowerCase(); // 'h2', 'h3', 'h4'
+        const level = h.tagName.toLowerCase();
         const text = h.textContent.trim();
         const id = h.id;
-
         let liClass = 'level-' + level;
-        // 特殊处理：如果内容以数字开头，保留原样
         tocHTML += '<li><a href="#' + id + '" class="' + liClass + '" data-target="' + id + '">' + text + '</a></li>';
     });
-
     tocList.innerHTML = tocHTML;
 
-    // ---------- 平滑滚动 & 高亮 ----------
+    // ========== 平滑滚动 & 高亮 ==========
     const tocLinks = tocList.querySelectorAll('a');
     const allHeadings = content.querySelectorAll('h2, h3, h4');
 
-    // 点击目录链接平滑滚动
     tocLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('data-target');
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
-                // 考虑侧边栏宽度，滚动到目标位置
                 const offset = 20;
                 const top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({ top: top, behavior: 'smooth' });
-                // 更新高亮
                 updateActiveLink(targetId);
             }
         });
     });
 
-    // 更新高亮
     function updateActiveLink(activeId) {
         tocLinks.forEach(function(link) {
             link.classList.remove('active');
             if (link.getAttribute('data-target') === activeId) {
                 link.classList.add('active');
-                // 确保可见
                 link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
             }
         });
     }
 
-    // ---------- 滚动监听：高亮当前可见标题 ----------
+    // ========== 滚动监听 ==========
     let scrollTimeout = null;
-
     function getVisibleHeading() {
         let minDist = Infinity;
         let closest = null;
-        const scrollY = window.pageYOffset + 80; // 偏移量
-
+        const scrollY = window.pageYOffset + 80;
         allHeadings.forEach(function(h) {
             const rect = h.getBoundingClientRect();
             const top = rect.top + window.pageYOffset;
@@ -86,12 +134,9 @@
                 closest = h;
             }
         });
-
-        // 如果距离太大，可能没有合适的，返回null
         if (minDist > 300) return null;
         return closest;
     }
-
     function onScroll() {
         if (scrollTimeout) return;
         scrollTimeout = setTimeout(function() {
@@ -102,16 +147,14 @@
             }
         }, 80);
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // 初始高亮
     setTimeout(function() {
         const firstHeading = allHeadings[0];
         if (firstHeading) {
             updateActiveLink(firstHeading.id);
         }
     }, 100);
-    console.log('✅ 新手引导页面加载完成');
 
+    console.log('✅ 新手引导页面加载完成');
 })();

@@ -1,18 +1,62 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文件下载</title>
+    <title>YZYM Download Centre</title>
     <link rel="stylesheet" href="index.css">
+    <base target="_blank">
 </head>
 <body>
-    <div class="container">
-        <h1>Minecraft1.21.11资源下载</h1>
-        <p class="subtitle">专为学校信息课打造</p>
-        <ul class="file-list" id="fileList"></ul>
+<!-- 自定义光标 -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-outline" id="cursorOutline"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- 导航头部 -->
+<header>
+    <div class="logo">渊之鱼冥下载站</div>
+    <nav>
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="minecraft.html">Minecraft 专区</a></li>
+            <li><a href="guide.html">新手引导</a></li>
+            <li><a href="#about">关于本站</a></li>
+        </ul>
+    </nav>
+    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="切换明暗主题">
+        <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+</header>
+
+<section class="hero" id="home">
+    <!-- 通栏通知栏 -->
+    <div class="notice glass-card">
+        <span class="notice-icon">📢</span>
+        <span><strong>新站上线！</strong> 所有资源已迁移至本站，后续更新请关注这里，感谢支持！</span>
     </div>
-    <script type="text/javascript" src="index.js"></script>
-    <a href="guide.html" class="guide-btn">新手引导</a>
+
+    <h1 class="hero-title">渊之鱼冥文件下载站</h1>
+    <p class="subhead">—— 专为校园信息课与游戏爱好者准备 ——</p>
+
+    <div class="intro glass-card">
+        <p>欢迎来到 <strong>渊之鱼冥</strong> 的个人文件仓库！本站专注收录各类实用资源，核心为 <strong>Minecraft 游戏资源</strong>，同时涵盖常用工具、扩展包及校园信息课必备软件。</p>
+        <p>所有文件均经过精心整理，适配学校机房环境（无音频、轻量化、免安装），无需登录即可高速下载，让您的信息课体验更流畅、更自由。</p>
+        <p>👇 点击下方按钮，快速进入 <strong>Minecraft 资源专区</strong>，获取您需要的资源！</p>
+    </div>
+
+    <a href="minecraft.html" class="btn magnetic-btn">Minecraft 相关</a>
+</section>
+
+<footer id="about">
+    <p>© 2026 YuanZhiYuMing · 站点由 <a href="https://pages.github.com/" target="_blank">Github Pages</a> 驱动</p>
+</footer>
+
+<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
