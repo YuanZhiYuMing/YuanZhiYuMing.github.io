@@ -368,6 +368,15 @@ nav a:hover::after {
     transform: scale(0.98);
 }
 
+/* ========== 按钮组 ========== */
+.btn-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 /* ========== 页脚 ========== */
 footer {
     padding: 3rem 8%;
@@ -427,6 +436,10 @@ footer a:hover {
     }
 }
 @media(max-width:480px) {
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
     .btn {
         width: 100%;
         text-align: center;
